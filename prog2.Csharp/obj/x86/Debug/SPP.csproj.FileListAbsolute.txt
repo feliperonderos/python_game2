@@ -1,0 +1,22 @@
+C:\Users\Felipe\Desktop\prog1.Csharp\bin\Debug\SPP.exe
+C:\Users\Felipe\Desktop\prog1.Csharp\obj\x86\Debug\SPP.exe
+C:\Users\Felipe\Desktop\prog1.Csharp\obj\x86\Debug\SPP.pdb
+C:\Users\Felipe\Desktop\prog1.Csharp\bin\Debug\SPP.pdb
+C:\Users\Felipe\Desktop\prog1.Csharp\obj\x86\Debug\SPP.csprojResolveAssemblyReference.cache
+C:\My Files\Andres\Temp\Felipe\LSU\Tareas\csc4101\ProgramasFelipe\prog1.Csharp\obj\x86\Debug\SPP.exe
+C:\My Files\Andres\Temp\Felipe\LSU\Tareas\csc4101\ProgramasFelipe\prog1.Csharp\obj\x86\Debug\SPP.pdb
+C:\My Files\Andres\Temp\Felipe\LSU\Tareas\csc4101\ProgramasFelipe\prog1.Csharp\bin\Debug\SPP.exe
+C:\My Files\Andres\Temp\Felipe\LSU\Tareas\csc4101\ProgramasFelipe\prog1.Csharp\bin\Debug\SPP.pdb
+C:\My Files\Andres\Temp\Felipe\LSU\Tareas\csc4101\ProgramasFelipe\prog1.Csharp\obj\x86\Debug\SPP.csprojResolveAssemblyReference.cache
+C:\My Files\Andres\Temp\Felipe\LSU\Tareas\csc4101\Project2-CopyFromProject1\prog1.Csharp\obj\x86\Debug\SPP.exe
+C:\My Files\Andres\Temp\Felipe\LSU\Tareas\csc4101\Project2-CopyFromProject1\prog1.Csharp\obj\x86\Debug\SPP.pdb
+C:\My Files\Andres\Temp\Felipe\LSU\Tareas\csc4101\Project2-CopyFromProject1\prog2.Csharp\obj\x86\Debug\SPP.exe
+C:\My Files\Andres\Temp\Felipe\LSU\Tareas\csc4101\Project2-CopyFromProject1\prog2.Csharp\obj\x86\Debug\SPP.pdb
+C:\My Files\Andres\Temp\Felipe\LSU\Tareas\csc4101\Project2-CopyFromProject1\prog2.Csharp\bin\Debug\SPP.exe
+C:\My Files\Andres\Temp\Felipe\LSU\Tareas\csc4101\Project2-CopyFromProject1\prog2.Csharp\bin\Debug\SPP.pdb
+C:\My Files\Andres\Temp\Felipe\LSU\Tareas\csc4101\Project2-CopyFromProject1\prog2.Csharp\obj\x86\Debug\SPP.csprojResolveAssemblyReference.cache
+C:\Users\Felipe\Desktop\prog2.Csharp\obj\x86\Debug\SPP.exe
+C:\Users\Felipe\Desktop\prog2.Csharp\obj\x86\Debug\SPP.pdb
+C:\Users\Felipe\Desktop\prog2.Csharp\bin\Debug\SPP.exe
+C:\Users\Felipe\Desktop\prog2.Csharp\bin\Debug\SPP.pdb
+C:\Users\Felipe\Desktop\prog2.Csharp\obj\x86\Debug\SPP.csprojResolveAssemblyReference.cache
