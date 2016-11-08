@@ -34,7 +34,7 @@ using System.Collections.Generic;
 
 namespace Tree
 {
-    public class Environment {
+    public class Environment : Node {
         Environment nextLayer = null;
         Dictionary<string, Node> dict;
         public Environment()
@@ -91,24 +91,6 @@ namespace Tree
                     null
                     );
             }
-        }
-
-        public Node asNode()
-        {
-            Node ret = null;
-            foreach (KeyValuePair<string, Node> entry in dict)
-            {
-                Node envVar = new Cons(new StringLit(entry.Key), entry.Value);
-                if (ret.isNull())
-                {
-                    ret = envVar;
-                }
-                else
-                {
-                    ret = new Cons(envVar, ret);
-                }
-            }
-            return ret;
         }
 
 

@@ -48,89 +48,74 @@ namespace Tree
         public override Node apply(Node args, Environment env)
         {
             string s = symbol;
-            Node arg1 = args.getCar();
-            Node arg2 = (!args.getCdr().isNull()) ? (args.getCdr().getCar()) : null;
+            Node arg1 = new Node();
+            Node arg2 = new Node();
+            if (!args.isNull())
+            {
+                arg1 = args.getCar();
+                arg2 = (!args.getCdr().isNull()) ? (args.getCdr().getCar()) : null;
+            }
             switch (s)
             {
                 case "+":
                     return new IntLit((int)arg1.eval(env) + (int)arg2.eval(env));
-                    break;
                 case "-":
                     return new IntLit((int)arg1.eval(env) - (int)arg2.eval(env));
-                    break;
                 case "*":
                     return new IntLit((int)arg1.eval(env) * (int)arg2.eval(env));
-                    break;
                 case "/":
                     return new IntLit((int)arg1.eval(env) / (int)arg2.eval(env));
-                    break;
                 case "=":
                     return new BoolLit((int)arg1.eval(env) == (int)arg2.eval(env));
-                    break;
                 case ">":
                     return new BoolLit((int)arg1.eval(env) > (int)arg2.eval(env));
-                    break;
                 case ">=":
                     return new BoolLit((int)arg1.eval(env) >= (int)arg2.eval(env));
-                    break;
                 case "<=":
                     return new BoolLit((int)arg1.eval(env) <= (int)arg2.eval(env));
-                    break;
                 case "<":
                     return new BoolLit((int)arg1.eval(env) < (int)arg2.eval(env));
-                    break;
 
                 case "symbol?":
                     return new BoolLit(arg1.isSymbol());
-                    break;
                 case "number?":
                     return new BoolLit(arg1.isNumber());
-                    break;
                 case "procedure?":
                     return new BoolLit(arg1.isProcedure());
-                    break;
                 case "car":
                     return arg1;
-                    break;
                 case "cdr":
                     return args.getCdr();
-                    break;
                 case "cons":
                     return new Cons((Node)args.GetCar(),args.getCdr());
-                    break;
                 case "set-car!":
                     return new Cons(arg2, arg1.getCdr());
-                    break;
                 case "set-cdr!":
                     return new Cons(arg1.getCar(),arg2);
-                    break;
                 case "null?":
                     return new BoolLit(arg1.isNull());
-                    break;
                 case "pair?":
                     return new BoolLit(arg1.isPair());
-                    break;
                 case "eq?":
                     return new BoolLit(arg1.eval(env) == arg2.eval(env));
-                    break;
 
                 case "read":
                     Scanner scanner = new Scanner(Console.In);
                     Parser parser = new Parser(scanner);
                     return parser.parseExp();
-                    break;
                 case "write":
                     // call pretty printer on arg1
-                    break;
+                    arg1.print(0);
+                    return new Node();
                 case "display":
+                    arg1.print(0);
+                    return new Node();
                     // call pretty printer on arg1, subtly different in that strings and characters are printed without any notation
-                    break;
                 case "newline":
-                    return new NewLine();
-                    break;
+                    Console.Write("\n");
+                    return new Node();
                 case "interaction-environment":
-                    return env.asNode();
-                    break;
+                    return env;
                 default:
                     return null;
                 /*
