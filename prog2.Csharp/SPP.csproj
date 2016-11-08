@@ -68,6 +68,7 @@
     <Compile Include="Tree\Environment.cs" />
     <Compile Include="Tree\Ident.cs" />
     <Compile Include="Tree\IntLit.cs" />
+    <Compile Include="Tree\NewLine.cs" />
     <Compile Include="Tree\Nil.cs" />
     <Compile Include="Tree\Node.cs" />
     <Compile Include="Tree\StringLit.cs" />

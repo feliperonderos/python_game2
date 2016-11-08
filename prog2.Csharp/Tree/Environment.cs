@@ -40,7 +40,7 @@ namespace Tree
         public Environment()
         {
             dict = new Dictionary<string, Node>();
-            string[] builtins = { "+", "-", "*", "/", ">", "<", "=", "<=", ">=","symbol?","number?","procedure?","car","cdr","cons","set-car","set-cdr","null?","pair?","eq?"};
+            string[] builtins = { "+", "-", "*", "/", ">", "<", "=", "<=", ">=","symbol?","number?","procedure?","car","cdr","cons","set-car","set-cdr","null?","pair?","eq?","read","write","display","newline","interaction-environment"};
             foreach (string e in builtins)
             {
                 this.define(e, new BuiltIn(e));
@@ -91,6 +91,24 @@ namespace Tree
                     null
                     );
             }
+        }
+
+        public Node asNode()
+        {
+            Node ret = null;
+            foreach (KeyValuePair<string, Node> entry in dict)
+            {
+                Node envVar = new Cons(new StringLit(entry.Key), entry.Value);
+                if (ret.isNull())
+                {
+                    ret = envVar;
+                }
+                else
+                {
+                    ret = new Cons(envVar, ret);
+                }
+            }
+            return ret;
         }
 
 

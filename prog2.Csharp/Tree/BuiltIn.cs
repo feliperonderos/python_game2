@@ -14,6 +14,7 @@
 // the function symbol.
 
 using System;
+using Parse;
 
 namespace Tree
 {
@@ -48,7 +49,7 @@ namespace Tree
         {
             string s = symbol;
             Node arg1 = args.getCar();
-            Node arg2 = (!args.getCdr().isNull()) ? (args.getCdr().getCar()) : null ;
+            Node arg2 = (!args.getCdr().isNull()) ? (args.getCdr().getCar()) : null;
             switch (s)
             {
                 case "+":
@@ -111,6 +112,24 @@ namespace Tree
                     break;
                 case "eq?":
                     return new BoolLit(arg1.eval(env) == arg2.eval(env));
+                    break;
+
+                case "read":
+                    Scanner scanner = new Scanner(Console.In);
+                    Parser parser = new Parser(scanner);
+                    return parser.parseExp();
+                    break;
+                case "write":
+                    // call pretty printer on arg1
+                    break;
+                case "display":
+                    // call pretty printer on arg1, subtly different in that strings and characters are printed without any notation
+                    break;
+                case "newline":
+                    return new NewLine();
+                    break;
+                case "interaction-environment":
+                    return env.asNode();
                     break;
                 default:
                     return null;
