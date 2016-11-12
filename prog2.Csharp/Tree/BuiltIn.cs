@@ -104,13 +104,10 @@ namespace Tree
                     Parser parser = new Parser(scanner);
                     return parser.parseExp();
                 case "write":
-                    // call pretty printer on arg1
-                    arg1.print(0);
-                    return new Node();
+                    return arg1;
                 case "display":
-                    arg1.print(0);
-                    return new Node();
-                    // call pretty printer on arg1, subtly different in that strings and characters are printed without any notation
+                    return arg1;
+                    // TODO: strings and characters should be printed without any notation
                 case "newline":
                     Console.Write("\n");
                     return new Node();

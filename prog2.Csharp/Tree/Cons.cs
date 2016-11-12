@@ -118,13 +118,26 @@ namespace Tree
             }
             else if (form is Quote)
             {
-                ;
-            }
-            else if (form is Begin)
-            {
-                ;
+                return cdr;
             }
             //END TODO
+            else if (form is Begin)
+            {
+                Node expression;
+                while (!cdr.isNull())
+                {
+                    expression = cdr.getCar();
+                    if (!cdr.getCdr().isNull())
+                    {
+                        expression.eval(e);
+                        cdr = cdr.getCdr();
+                    }
+                    else
+                    {
+                        return expression.eval(e);
+                    }
+                }
+            }
             else if (form is Set)
             {
                 e.change(cdr.getCar().getName(), cdr.getCdr().getCar());
