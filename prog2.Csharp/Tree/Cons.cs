@@ -141,13 +141,19 @@ namespace Tree
             }
             else if (form is Quote)//buggy
             {
-                ;
+                return cdr;
             }
+<<<<<<< HEAD
             else if (form is Begin)//buggy
+=======
+            //END TODO
+            else if (form is Begin)
+>>>>>>> origin/master
             {
                 Node expression;
                 while (!cdr.isNull())
                 {
+<<<<<<< HEAD
                   expression = cdr.getCar();
                   if (!cdr.getCdr().isNull())
                   {
@@ -157,9 +163,20 @@ namespace Tree
                   else{
                          return expression.eval(e);
                   }
+=======
+                    expression = cdr.getCar();
+                    if (!cdr.getCdr().isNull())
+                    {
+                        expression.eval(e);
+                        cdr = cdr.getCdr();
+                    }
+                    else
+                    {
+                        return expression.eval(e);
+                    }
+>>>>>>> origin/master
                 }
             }
-            //END TODO
             else if (form is Set)
             {
                 e.change(cdr.getCar().getName(), cdr.getCdr().getCar());

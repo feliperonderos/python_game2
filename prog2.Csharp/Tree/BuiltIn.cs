@@ -50,6 +50,7 @@ namespace Tree
             string s = symbol;
             Node arg1 = new Node();
             Node arg2 = new Node();
+<<<<<<< HEAD
             Node arg1s = new Node();
             Node arg2s = new Node();
             if (!args.isNull()) { 
@@ -65,10 +66,17 @@ namespace Tree
                 {
                     arg2s = (Node)arg2s.eval(env);
                 }
+=======
+            if (!args.isNull())
+            {
+                arg1 = args.getCar();
+                arg2 = (!args.getCdr().isNull()) ? (args.getCdr().getCar()) : null;
+>>>>>>> origin/master
             }
             switch (s)
             {
                 case "+":
+<<<<<<< HEAD
                     return new IntLit((int)arg1s.eval(env) + (int)arg2s.eval(env));
                     break;
                 case "-":
@@ -95,14 +103,32 @@ namespace Tree
                 case "<":
                     return new BoolLit((int)arg1s.eval(env) < (int)arg2s.eval(env));
                     break;
+=======
+                    return new IntLit((int)arg1.eval(env) + (int)arg2.eval(env));
+                case "-":
+                    return new IntLit((int)arg1.eval(env) - (int)arg2.eval(env));
+                case "*":
+                    return new IntLit((int)arg1.eval(env) * (int)arg2.eval(env));
+                case "/":
+                    return new IntLit((int)arg1.eval(env) / (int)arg2.eval(env));
+                case "=":
+                    return new BoolLit((int)arg1.eval(env) == (int)arg2.eval(env));
+                case ">":
+                    return new BoolLit((int)arg1.eval(env) > (int)arg2.eval(env));
+                case ">=":
+                    return new BoolLit((int)arg1.eval(env) >= (int)arg2.eval(env));
+                case "<=":
+                    return new BoolLit((int)arg1.eval(env) <= (int)arg2.eval(env));
+                case "<":
+                    return new BoolLit((int)arg1.eval(env) < (int)arg2.eval(env));
+>>>>>>> origin/master
 
                 case "symbol?":
                     return new BoolLit(arg1.isSymbol());
-                    break;
                 case "number?":
                     return new BoolLit(arg1.isNumber());
-                    break;
                 case "procedure?":
+<<<<<<< HEAD
                     return new BoolLit(arg1s.isProcedure());
                     break;
                 case "car":
@@ -114,19 +140,25 @@ namespace Tree
                 case "cons":
                     return new Cons((Node)arg1,arg2);
                     break;
+=======
+                    return new BoolLit(arg1.isProcedure());
+                case "car":
+                    return arg1;
+                case "cdr":
+                    return args.getCdr();
+                case "cons":
+                    return new Cons((Node)args.GetCar(),args.getCdr());
+>>>>>>> origin/master
                 case "set-car!":
                     return new Cons(arg2, arg1.getCdr());
-                    break;
                 case "set-cdr!":
                     return new Cons(arg1.getCar(),arg2);
-                    break;
                 case "null?":
                     return new BoolLit(arg1.isNull());
-                    break;
                 case "pair?":
                     return new BoolLit(arg1.isPair());
-                    break;
                 case "eq?":
+<<<<<<< HEAD
                     if ((arg1 is Ident) && (arg2 is Ident))
                     {
                         while (arg1 is Ident) {
@@ -141,11 +173,15 @@ namespace Tree
                     else
                         return new BoolLit(arg1.eval(env) == arg2.eval(env));
                     break;
+=======
+                    return new BoolLit(arg1.eval(env) == arg2.eval(env));
+>>>>>>> origin/master
 
                 case "read":
                     Scanner scanner = new Scanner(Console.In);
                     Parser parser = new Parser(scanner);
                     return parser.parseExp();
+<<<<<<< HEAD
                     break;
                 case "write":
                     return arg1;
@@ -161,6 +197,18 @@ namespace Tree
                 case "interaction-environment":
                     return env;
                     break;
+=======
+                case "write":
+                    return arg1;
+                case "display":
+                    return arg1;
+                    // TODO: strings and characters should be printed without any notation
+                case "newline":
+                    Console.Write("\n");
+                    return new Node();
+                case "interaction-environment":
+                    return env;
+>>>>>>> origin/master
                 default:
                     return null;
                 /*

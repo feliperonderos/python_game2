@@ -40,7 +40,11 @@ namespace Tree
         public Environment()
         {
             dict = new Dictionary<string, Node>();
+<<<<<<< HEAD
             string[] builtins = { "+", "-", "read", "write", "display", "newline", "interaction-environment", "*", "/", ">", "<", "=", "<=", ">=","symbol?","number?","procedure?","car","cdr","cons","set-car","set-cdr","null?","pair?","eq?"};
+=======
+            string[] builtins = { "+", "-", "*", "/", ">", "<", "=", "<=", ">=","symbol?","number?","procedure?","car","cdr","cons","set-car","set-cdr","null?","pair?","eq?","read","write","display","newline","interaction-environment"};
+>>>>>>> origin/master
             foreach (string e in builtins)
             {
                 this.define(e, new BuiltIn(e));
