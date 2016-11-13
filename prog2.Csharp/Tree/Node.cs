@@ -66,7 +66,7 @@ namespace Tree
         // in class Cons.  After setCar, a Cons cell needs to be `parsed' again
         // using parseList.
         public virtual Node getCar() {
-            System.Console.Error.WriteLine("Error: argument of car is not a pair");
+            //System.Console.Error.WriteLine("Error: argument of car is not a pair");
             return null;
         }
 

@@ -34,13 +34,13 @@ using System.Collections.Generic;
 
 namespace Tree
 {
-    public class Environment {
+    public class Environment : Node {
         Environment nextLayer = null;
         Dictionary<string, Node> dict;
         public Environment()
         {
             dict = new Dictionary<string, Node>();
-            string[] builtins = { "+", "-", "*", "/", ">", "<", "=", "<=", ">=","symbol?","number?","procedure?","car","cdr","cons","set-car","set-cdr","null?","pair?","eq?"};
+            string[] builtins = { "+", "-", "read", "write", "display", "newline", "interaction-environment", "*", "/", ">", "<", "=", "<=", ">=","symbol?","number?","procedure?","car","cdr","cons","set-car","set-cdr","null?","pair?","eq?"};
             foreach (string e in builtins)
             {
                 this.define(e, new BuiltIn(e));

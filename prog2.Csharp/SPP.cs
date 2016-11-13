@@ -61,9 +61,22 @@ public class SPP
         root = parser.parseExp();
         while (root != null)
         {
-            Console.Write("Scheme 4101> ");
+            
             //root = (Node)builder.buildCons(root, null);
-            System.Console.WriteLine(root.eval(env));
+            Object o = root.eval(env);
+            if (o is Node)
+            {
+                ((Node)root.eval(env)).print(0);
+                //System.Console.WriteLine(((Node)root.eval(env)).eval(env));
+            }
+            else if (o == null)
+            {
+                ;
+            }
+            else {
+                root.print(0);
+            }
+            Console.WriteLine();
             Console.Write("Scheme 4101> ");
             root = parser.parseExp();
         }

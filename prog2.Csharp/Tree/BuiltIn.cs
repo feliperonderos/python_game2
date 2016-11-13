@@ -14,6 +14,7 @@
 // the function symbol.
 
 using System;
+using Parse;
 
 namespace Tree
 {
@@ -47,36 +48,52 @@ namespace Tree
         public override Node apply(Node args, Environment env)
         {
             string s = symbol;
-            Node arg1 = args.getCar();
-            Node arg2 = (!args.getCdr().isNull()) ? (args.getCdr().getCar()) : null ;
+            Node arg1 = new Node();
+            Node arg2 = new Node();
+            Node arg1s = new Node();
+            Node arg2s = new Node();
+            if (!args.isNull()) { 
+                arg1 = args.getCar();
+                arg2 = (!args.getCdr().isNull()) ? (args.getCdr().getCar()) : null;
+                arg1s = (arg1 is Cons) ? ((Node)arg1.eval(env)) : arg1;
+                arg2s = (arg2 is Cons) ? ((Node)arg2.eval(env)) : arg2;
+                while (arg1s is Ident)
+                {
+                    arg1s = (Node)arg1s.eval(env);
+                }
+                while (arg2s is Ident)
+                {
+                    arg2s = (Node)arg2s.eval(env);
+                }
+            }
             switch (s)
             {
                 case "+":
-                    return new IntLit((int)arg1.eval(env) + (int)arg2.eval(env));
+                    return new IntLit((int)arg1s.eval(env) + (int)arg2s.eval(env));
                     break;
                 case "-":
-                    return new IntLit((int)arg1.eval(env) - (int)arg2.eval(env));
+                    return new IntLit((int)arg1s.eval(env) - (int)arg2s.eval(env));
                     break;
                 case "*":
-                    return new IntLit((int)arg1.eval(env) * (int)arg2.eval(env));
+                    return new IntLit((int)arg1s.eval(env) * (int)arg2s.eval(env));
                     break;
                 case "/":
-                    return new IntLit((int)arg1.eval(env) / (int)arg2.eval(env));
+                    return new IntLit((int)arg1s.eval(env) / (int)arg2s.eval(env));
                     break;
                 case "=":
-                    return new BoolLit((int)arg1.eval(env) == (int)arg2.eval(env));
+                    return new BoolLit((int)arg1s.eval(env) == (int)arg2s.eval(env));
                     break;
                 case ">":
-                    return new BoolLit((int)arg1.eval(env) > (int)arg2.eval(env));
+                    return new BoolLit((int)arg1s.eval(env) > (int)arg2s.eval(env));
                     break;
                 case ">=":
-                    return new BoolLit((int)arg1.eval(env) >= (int)arg2.eval(env));
+                    return new BoolLit((int)arg1s.eval(env) >= (int)arg2s.eval(env));
                     break;
                 case "<=":
-                    return new BoolLit((int)arg1.eval(env) <= (int)arg2.eval(env));
+                    return new BoolLit((int)arg1s.eval(env) <= (int)arg2s.eval(env));
                     break;
                 case "<":
-                    return new BoolLit((int)arg1.eval(env) < (int)arg2.eval(env));
+                    return new BoolLit((int)arg1s.eval(env) < (int)arg2s.eval(env));
                     break;
 
                 case "symbol?":
@@ -86,16 +103,16 @@ namespace Tree
                     return new BoolLit(arg1.isNumber());
                     break;
                 case "procedure?":
-                    return new BoolLit(arg1.isProcedure());
+                    return new BoolLit(arg1s.isProcedure());
                     break;
                 case "car":
-                    return arg1;
+                    return arg1.getCar();
                     break;
                 case "cdr":
-                    return args.getCdr();
+                    return arg1.getCdr();
                     break;
                 case "cons":
-                    return new Cons((Node)args.GetCar(),args.getCdr());
+                    return new Cons((Node)arg1,arg2);
                     break;
                 case "set-car!":
                     return new Cons(arg2, arg1.getCdr());
@@ -110,7 +127,39 @@ namespace Tree
                     return new BoolLit(arg1.isPair());
                     break;
                 case "eq?":
-                    return new BoolLit(arg1.eval(env) == arg2.eval(env));
+                    if ((arg1 is Ident) && (arg2 is Ident))
+                    {
+                        while (arg1 is Ident) {
+                            arg1 = env.find(arg1.getName());
+                        }
+                        while (arg2 is Ident)
+                        {
+                            arg2 = env.find(arg2.getName());
+                        }
+                        return new BoolLit(arg1 == arg2);
+                    }
+                    else
+                        return new BoolLit(arg1.eval(env) == arg2.eval(env));
+                    break;
+
+                case "read":
+                    Scanner scanner = new Scanner(Console.In);
+                    Parser parser = new Parser(scanner);
+                    return parser.parseExp();
+                    break;
+                case "write":
+                    return arg1;
+                    break;
+                case "display":
+                    return arg1;
+                    // call pretty printer on arg1, subtly different in that strings and characters are printed without any notation
+                    break;
+                case "newline":
+                    Console.Write("\n");
+                    return new Node();
+                    break;
+                case "interaction-environment":
+                    return env;
                     break;
                 default:
                     return null;

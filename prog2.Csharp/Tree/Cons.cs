@@ -88,41 +88,76 @@ namespace Tree
         {
             if (form is If)
             {
-                if ((Boolean)cdr.getCar().eval(e))
+                if ((Boolean)((Node)cdr.getCar().eval(e)).eval(e))
                 {
-                    return cdr.getCdr().getCar().eval(e);
+                    if (cdr.getCdr().getCar() is Cons) return cdr.getCdr().getCar().eval(e);
+                    return cdr.getCdr().getCar();
                 }
                 else
                 {
-                    return cdr.getCdr().getCdr().getCar().eval(e);
+                    if (cdr.getCdr().getCdr().getCar() is Cons) return cdr.getCdr().getCdr().getCar().eval(e);
+                    return cdr.getCdr().getCdr().getCar();
                 }
             }
             else if (form is Cond) {
                 Node nextClause = cdr;
-                while ((nextClause.getCar().getCar().getName() != "else") && (!((Boolean)nextClause.getCar().getCar().eval(e)))) {
+                Node o = (Node) nextClause.getCar().getCar().eval(e);
+                while ((nextClause.getCar().getCar().getName() != "else") && (!(Boolean)o.eval(e))) {
                     nextClause = nextClause.getCdr();
                 }
-                return nextClause.getCar().getCdr().getCar().eval(e);
+                Node p = (nextClause.getCar().getCdr().getCar());
+                while (p is Cons) {
+                    p = (Node)p.eval(e);
+                }
+                return p;
             }
             //TODO: Closures
             else if (form is Define)
             {
+                if (cdr.GetCar() is Cons) {      
+                    e.define(cdr.getCar().getCar().getName(), new Closure(new Cons(cdr.getCar().getCdr(), cdr.getCdr()), e));
+                }
+                else
                 e.define(cdr.getCar().getName(), cdr.getCdr().getCar());
             }
             else if (form is Lambda) {
-                ;
+                return new Closure(cdr,e);
             }
             else if (form is Let)
             {
-                ;
+                Environment env = new Environment(e);
+                Node assign = (Node)cdr.GetCar();
+                while (!assign.isNull()){
+                    if (assign.getCar().getCdr().getCar() is Cons)
+                    {
+                        env.define(assign.getCar().getCar().getName(), (Node)assign.getCar().getCdr().getCar().eval(env));
+                    }
+                    else {
+                        env.define(assign.getCar().getCar().getName(), (Node)assign.getCar().getCdr().getCar());
+                    }
+                    assign = assign.getCdr();
+                }
+                return cdr.getCdr().getCar().eval(env);
             }
-            else if (form is Quote)
+            else if (form is Quote)//buggy
             {
                 ;
             }
-            else if (form is Begin)
+            else if (form is Begin)//buggy
             {
-                ;
+                Node expression;
+                while (!cdr.isNull())
+                {
+                  expression = cdr.getCar();
+                  if (!cdr.getCdr().isNull())
+                  {
+                        expression.eval(e);
+                        cdr = cdr.getCdr();
+                  }
+                  else{
+                         return expression.eval(e);
+                  }
+                }
             }
             //END TODO
             else if (form is Set)
@@ -131,7 +166,9 @@ namespace Tree
             }
             else if ((car.eval(e) is Node) && (((Node)car.eval(e)).isProcedure()))
             {
-                return ((Node)car.eval(e)).apply(cdr, e).eval(e);
+                object pp = ((Node)car.eval(e));
+                object p = ((Node)car.eval(e)).apply(cdr, new Environment(e));
+                return ((Node)p);
             }
             return null;
         }

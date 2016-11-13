@@ -18,7 +18,7 @@ namespace Tree
             if ((!(e.find(name).isNull())) && (e.find(name).isProcedure())) {
                 return e.find(name);
             }
-            return e.find(name).eval(e);
+            return e.find(name);
         }
 
 

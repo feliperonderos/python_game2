@@ -45,7 +45,25 @@ namespace Tree
         // It should be overridden only in classes BuiltIn and Closure
         public override Node apply (Node args, Environment env)
         {
-            return new StringLit("Error: Closure.apply not yet implemented");
+
+            Node arglist = fun.getCar();
+            Node fun2run = fun.getCdr().getCar();
+            while ((!args.isNull()))
+            {
+                if (args.getCar() is Cons)
+                {
+                    env.define(arglist.getCar().getName(), (Node)args.getCar().eval(env));
+                }
+                else
+                {
+                    env.define(arglist.getCar().getName(), args.getCar());
+                }
+                args = args.getCdr();
+                arglist = arglist.getCdr();
+            }
+            //&&(!(args).getCdr().isNull()));
+            Node p = (Node)fun2run.eval(env);
+            return p;
         }
     }    
 }
